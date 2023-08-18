@@ -18,10 +18,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, path
 import store.views
+import store.api_views
 
 # The path() function is passed four arguments, two required: route and view
 
 urlpatterns = [
+    path("api/v1/products/", store.api_views.ProductList.as_view()),
     path("store/", include("store.urls")),
     path("admin/", admin.site.urls),
     path("products/<int:id>/", store.views.show, name="show-product"),
