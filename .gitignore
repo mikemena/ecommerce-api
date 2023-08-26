@@ -163,5 +163,6 @@ cython_debug/
 
 # directory
 NOTES.MD
+DATABASE.MD
 static/
 source-code/
