@@ -1,6 +1,5 @@
 from rest_framework.generics import ListAPIView
 
-# from django_filters.rest_framework import DjangoFilterBackend
 from django_filters.rest_framework import DjangoFilterBackend
 
 from store.serializers import ProductSerializer
