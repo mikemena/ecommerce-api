@@ -1,6 +1,9 @@
 from rest_framework.generics import ListAPIView
 
-# from django_filters.rest_framework import DjangoFilterBackend
+from django_filters.rest_framework import DjangoFilterBackend
+
+
+# import django_filters.rest_framework
 
 from store.serializers import ProductSerializer
 from store.models import Product
@@ -11,8 +14,9 @@ class ProductList(ListAPIView):
     serializer_class = ProductSerializer
 
     # filter back ends with URL Query
-    # filter_backends = (DjangoFilterBackend,)
-    # filter_fields = ("id",)
+    filter_backends = [DjangoFilterBackend]
+    # filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filterset_fields = ("id",)
 
     # filter a product by whether its on sale or not
     # def get_queryset(self):
