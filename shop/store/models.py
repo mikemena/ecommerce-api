@@ -11,6 +11,7 @@ class Product(models.Model):
     price = models.FloatField()
     sale_start = models.DateTimeField(blank=True, null=True, default=None)
     sale_end = models.DateTimeField(blank=True, null=True, default=None)
+    # on_sale = models.BooleanField(blank=True, null=True, default=None)
     photo = models.ImageField(blank=True, null=True, default=None, upload_to="products")
 
     def is_on_sale(self):
