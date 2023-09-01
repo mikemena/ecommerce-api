@@ -1,12 +1,18 @@
 from rest_framework.generics import ListAPIView
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.pagination import LimitOffsetPagination
 
 
 # import django_filters.rest_framework
 
 from store.serializers import ProductSerializer
 from store.models import Product
+
+
+class ProductsPagination(LimitOffsetPagination):
+    default_limit = 10
+    max_limit = 20
 
 
 class ProductList(ListAPIView):
@@ -18,6 +24,7 @@ class ProductList(ListAPIView):
     # filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
     filterset_fields = ("id",)
     search_fields = ("name", "description")
+    pagination_class = ProductsPagination
 
     # filter a product by whether its on sale or not
     def get_queryset(self):
