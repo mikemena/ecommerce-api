@@ -23,10 +23,14 @@ class ProductList(ListAPIView):
     filter_backends = [DjangoFilterBackend, SearchFilter]
     # filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
     filterset_fields = ("id",)
+    # http://127.0.0.1:8000/api/v1/products/?id=2
     search_fields = ("name", "description")
+    # http://127.0.0.1:8000/api/v1/products/?search=knife
     pagination_class = ProductsPagination
+    # http://127.0.0.1:8000/api/v1/products/?limit=2
 
     # filter a product by whether its on sale or not
+    # http://127.0.0.1:8000/api/v1/products/?on_sale=true
     def get_queryset(self):
         on_sale = self.request.query_params.get("on_sale", None)
         if on_sale is None:
