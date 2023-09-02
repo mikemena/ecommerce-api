@@ -74,3 +74,7 @@ def delete(self, request, *args, **kwargs):
         from django.core.cache import cache
 
         cache.delete("product_data_{}".format(product_id))
+    return response
+
+
+# http://127.0.0.1:8000/api/v1/products/2/destroy
