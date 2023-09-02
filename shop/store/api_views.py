@@ -1,5 +1,9 @@
 from rest_framework.exceptions import ValidationError
-from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView
+from rest_framework.generics import (
+    ListAPIView,
+    CreateAPIView,
+    RetrieveUpdateDestroyAPIView,
+)
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.pagination import LimitOffsetPagination
@@ -59,9 +63,10 @@ class ProductCreate(CreateAPIView):
         return super().create(request, *args, **kwargs)
 
 
-class ProductDestroy(DestroyAPIView):
+class ProductRetrieveUpdateDestroy(RetrieveUpdateDestroy):
     queryset = Product.objects.all()
     lookup_field = "id"
+    serializer_class = ProductSerializer
 
 
 # delete cached cookies for the deleted item
@@ -77,4 +82,4 @@ def delete(self, request, *args, **kwargs):
     return response
 
 
-# http://127.0.0.1:8000/api/v1/products/2/destroy
+# example url to destroy item with id #2 -> http://127.0.0.1:8000/api/v1/products/2/destroy
