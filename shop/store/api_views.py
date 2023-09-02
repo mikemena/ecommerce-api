@@ -22,6 +22,7 @@ class ProductList(ListAPIView):
 
     # filter back ends with URL Query
     filter_backends = [DjangoFilterBackend, SearchFilter]
+    # http://127.0.0.1:8000/api/v1/products/
     # filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
     filterset_fields = ("id",)
     # http://127.0.0.1:8000/api/v1/products/?id=2
