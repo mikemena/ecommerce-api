@@ -83,3 +83,20 @@ def delete(self, request, *args, **kwargs):
 
 
 # example url to destroy item with id #2 -> http://127.0.0.1:8000/api/v1/products/2/destroy
+
+
+def update(self, request, *args, **kwargs):
+    response = super().update(request, *args, **kwargs)
+    if response.status_code == 200:
+        from django.core.cache import cache
+
+        product = response.data
+        cache.set(
+            "product_data_{}".format(product["id"]),
+            {
+                "name": product["name"],
+                "description": product["description"],
+                "price": product["price"],
+            },
+        )
+    return response
