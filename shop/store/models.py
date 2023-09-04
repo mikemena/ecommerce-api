@@ -16,12 +16,9 @@ class Product(models.Model):
     def is_on_sale(self):
         now = timezone.now()
         if self.sale_start:
-            print("a")
             if self.sale_end:
                 return self.sale_start <= now <= self.sale_end
-                print("b")
             return self.sale_start <= now
-            print("c")
         return False
 
     def get_rounded_price(self):
@@ -29,7 +26,6 @@ class Product(models.Model):
 
     def current_price(self):
         if self.is_on_sale():
-            print(self.is_on_sale())
             discounted_price = self.price * (1 - self.DISCOUNT_RATE)
             return round(discounted_price, 2)
         return self.get_rounded_price()
