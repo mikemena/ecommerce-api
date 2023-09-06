@@ -1,4 +1,5 @@
-from django.utils import timezone
+# from django.utils import timezone
+from datetime import date
 from django.db import models
 
 
@@ -14,12 +15,13 @@ class Product(models.Model):
     photo = models.ImageField(blank=True, null=True, default=None, upload_to="products")
 
     def is_on_sale(self):
-        now = timezone.now()
-        print(now)
+        # now = timezone.now()
+        today = date.today()
+        print(today)
         if self.sale_start:
             if self.sale_end:
-                return self.sale_start <= now <= self.sale_end
-            return self.sale_start <= now
+                return self.sale_start <= today <= self.sale_end
+            return self.sale_start <= today
         return False
 
     def get_rounded_price(self):
