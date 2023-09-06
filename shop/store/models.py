@@ -1,5 +1,5 @@
 # from django.utils import timezone
-from datetime import date
+from datetime import datetime, date
 from django.db import models
 
 
@@ -17,11 +17,13 @@ class Product(models.Model):
     def is_on_sale(self):
         # now = timezone.now()
         today = date.today()
+        # Convert today's date to a datetime object
+        today_datetime = datetime.combine(today, datetime.min.time())
         print(today)
         if self.sale_start:
             if self.sale_end:
-                return self.sale_start <= today <= self.sale_end
-            return self.sale_start <= today
+                return self.sale_start <= today_datetime <= self.sale_end
+            return self.sale_start <= today_datetime
         return False
 
     def get_rounded_price(self):

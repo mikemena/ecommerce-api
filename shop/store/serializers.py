@@ -27,17 +27,17 @@ class ProductSerializer(serializers.ModelSerializer):
         decimal_places=2,
     )
     sale_start = serializers.DateTimeField(
-        input_formats=["%Y-%m-%d"],
+        input_formats=["%m-%d-%Y"],
         format=None,
         allow_null=True,
-        help_text='Accepted format is "YYYY-MM-DD"',
+        help_text='Accepted format is "12-25-2023"',
         style={"input_type": "text"},
     )
     sale_end = serializers.DateTimeField(
-        input_formats=["%Y-%m-%d"],
+        input_formats=["%m-%d-%Y"],
         format=None,
         allow_null=True,
-        help_text='Accepted format is "YYYY-MM-DD"',
+        help_text='Accepted format is "12-25-2023"',
         style={"input_type": "text"},
     )
     photo = serializers.ImageField(default=None)

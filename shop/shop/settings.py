@@ -126,3 +126,6 @@ STATIC_URL = "/static/"
 
 MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, "store", "uploads"))
 MEDIA_URL = "/uploads/"
+
+# Set the date format
+DATE_FORMAT = "m-d-Y"
