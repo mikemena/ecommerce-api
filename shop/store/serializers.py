@@ -27,19 +27,23 @@ class ProductSerializer(serializers.ModelSerializer):
         decimal_places=2,
     )
     sale_start = serializers.DateTimeField(
-        input_formats=["%I:%M %p %d %B %Y"],
+        input_formats=["%d-%m-%Y"],
         format=None,
         allow_null=True,
-        help_text='Accepted format is "12:01 PM 15 September 2023"',
-        style={"input_type": "text", "placeholder": "12:01 AM 10 September 2023"},
+        help_text='Accepted format is "09-15-2023"',
+        style={"input_type": "text"},
     )
     sale_end = serializers.DateTimeField(
-        input_formats=["%I:%M %p %d %B %Y"],
+        input_formats=["%d-%m-%Y"],
         format=None,
         allow_null=True,
-        help_text='Accepted format is "12:01 PM 15 September 2023"',
-        style={"input_type": "text", "placeholder": "12:01 AM 15 September 2023"},
+        help_text='Accepted format is "09-15-2023"',
+        style={"input_type": "text"},
     )
+    photo = serializers.ImageField(default=None)
+    # write_only=True means that the serailzier can write to the
+    # field but it does not get saved to the model
+    warranty = serializers.FileField(write_only=True, default=None)
 
     class Meta:
         model = Product
@@ -53,11 +57,23 @@ class ProductSerializer(serializers.ModelSerializer):
             "is_on_sale",
             "current_price",
             "cart_items",
+            "photo",
+            "warranty",
         )
 
     def get_cart_items(self, instance):
         items = ShoppingCartItem.objects.filter(product=instance)
         return CartItemSerializer(items, many=True).data
+
+    #  Validated data in the update method is the data that will be used to update the model. It is safe to access
+    #  because it is already passed through the validation process.
+    def update(self, instance, validated_data):
+        if validated_data.get("warranty", None):
+            instance.description += "\n\nWarranty Information:\n"
+            instance.description += b"; ".join(
+                validated_data["warranty"].readlines()
+            ).decode()
+        return instance
 
 
 class ProductStatSerializer(serializers.Serializer):
