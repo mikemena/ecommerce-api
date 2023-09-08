@@ -84,6 +84,7 @@ class ProductRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
                     "price": product["price"],
                 },
             )
+
         return response
 
 
