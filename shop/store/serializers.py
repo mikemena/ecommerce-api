@@ -27,15 +27,15 @@ class ProductSerializer(serializers.ModelSerializer):
         input_formats=["%m/%d/%Y"],
         format=None,
         allow_null=True,
-        help_text='Accepted format is "12:01 PM 16 April 2019"',
-        style={"input_type": "text", "placeholder": "12:01 AM 28 July 2019"},
+        help_text='Accepted format is "09/23/2024"',
+        style={"input_type": "text"},
     )
     sale_end = serializers.DateTimeField(
-        input_formats=["%I:%M %p %d %B %Y"],
+        input_formats=["%m/%d/%Y"],
         format=None,
         allow_null=True,
-        help_text='Accepted format is "12:01 PM 16 April 2019"',
-        style={"input_type": "text", "placeholder": "12:01 AM 28 July 2019"},
+        help_text='Accepted format is "09/23/2024"',
+        style={"input_type": "text"},
     )
 
     photo = serializers.ImageField(default=None)

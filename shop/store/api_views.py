@@ -33,12 +33,16 @@ class ProductList(ListAPIView):
             return super().get_queryset()
         queryset = Product.objects.all()
         if on_sale.lower() == "true":
-            from django.utils import timezone
+            # from django.utils import timezone
+            from datetime import datetime, date
 
-            now = timezone.now()
+            dt = datetime.now()
+            d = date.today()
+            # now = timezone.now()
+            # today_date = now.date()
             return queryset.filter(
-                sale_start__lte=now,
-                sale_end__gte=now,
+                sale_start__lte=d,
+                sale_end__gte=d,
             )
         return queryset
 
