@@ -15,13 +15,14 @@ class Product(models.Model):
     photo = models.ImageField(blank=True, null=True, default=None, upload_to="products")
 
     def is_on_sale(self):
-        d = datetime.strptime()
-        print("date: ", d)
+        date_str = "2023-09-07"
+        date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
+        print(type(date_obj))
         print("self.sale_start: ", self.sale_start)
         if self.sale_start:
             if self.sale_end:
-                return self.sale_start <= d <= self.sale_end
-            return self.sale_start <= d
+                return self.sale_start <= date_obj <= self.sale_end
+            return self.sale_start <= date_obj
         return False
 
     def get_rounded_price(self):
