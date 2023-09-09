@@ -24,15 +24,15 @@ class ProductSerializer(serializers.ModelSerializer):
         decimal_places=2,
     )
     sale_start = serializers.DateField(
+        required=False,
         input_formats=["%Y-%m-%d"],
-        # format=None,
         allow_null=True,
         help_text='Accepted format is "09/23/2024"',
         style={"input_type": "date"},
     )
     sale_end = serializers.DateField(
+        required=False,
         input_formats=["%Y-%m-%d"],
-        # format=None,
         allow_null=True,
         help_text='Accepted format is "09/23/2024"',
         style={"input_type": "date"},
