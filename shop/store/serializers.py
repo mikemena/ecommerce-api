@@ -23,19 +23,19 @@ class ProductSerializer(serializers.ModelSerializer):
         max_digits=None,
         decimal_places=2,
     )
-    sale_start = serializers.DateTimeField(
-        input_formats=["%m/%d/%Y"],
-        format=None,
+    sale_start = serializers.DateField(
+        input_formats=["%Y-%m-%d"],
+        # format=None,
         allow_null=True,
         help_text='Accepted format is "09/23/2024"',
-        style={"input_type": "text"},
+        style={"input_type": "date"},
     )
-    sale_end = serializers.DateTimeField(
-        input_formats=["%m/%d/%Y"],
-        format=None,
+    sale_end = serializers.DateField(
+        input_formats=["%Y-%m-%d"],
+        # format=None,
         allow_null=True,
         help_text='Accepted format is "09/23/2024"',
-        style={"input_type": "text"},
+        style={"input_type": "date"},
     )
 
     photo = serializers.ImageField(default=None)

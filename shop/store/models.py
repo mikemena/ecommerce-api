@@ -1,28 +1,33 @@
 # from django.utils import timezone
-from datetime import datetime
+from datetime import datetime, date
 from django.db import models
+from decimal import Decimal
 
 
 class Product(models.Model):
     DISCOUNT_RATE = 0.10
+    print("discount rate type:", type(DISCOUNT_RATE))
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
     description = models.TextField()
-    price = models.FloatField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     sale_start = models.DateField(blank=True, null=True, default=None)
     sale_end = models.DateField(blank=True, null=True, default=None)
     photo = models.ImageField(blank=True, null=True, default=None, upload_to="products")
 
     def is_on_sale(self):
-        date_str = datetime.now()
-        # date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
-        print(type(date_str))
+        # dt = datetime(2023, 9, 9, 14, 30, 45)
+        # d = dt.date()
+        today = date.today()
+        # print("type of dt: ", type(dt))
+        # print("type of d: ", type(d))
+        print("type of today: ", type(today))
         print("self.sale_start: ", self.sale_start)
         if self.sale_start:
             if self.sale_end:
-                return self.sale_start <= date_str <= self.sale_end
-            return self.sale_start <= date_str
+                return self.sale_start <= today <= self.sale_end
+            return self.sale_start <= today
         return False
 
     def get_rounded_price(self):
@@ -30,7 +35,7 @@ class Product(models.Model):
 
     def current_price(self):
         if self.is_on_sale():
-            discounted_price = self.price * (1 - self.DISCOUNT_RATE)
+            discounted_price = Decimal(self.price) * (1 - Decimal(self.DISCOUNT_RATE))
             return round(discounted_price, 2)
         return self.get_rounded_price()
 
