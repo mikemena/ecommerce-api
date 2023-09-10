@@ -19,10 +19,7 @@ class Product(models.Model):
         # dt = datetime(2023, 9, 9, 14, 30, 45)
         # d = dt.date()
         today = date.today()
-        # print("type of dt: ", type(dt))
-        # print("type of d: ", type(d))
-        print("type of today: ", type(today))
-        print("self.sale_start: ", self.sale_start)
+
         if self.sale_start:
             if self.sale_end:
                 return self.sale_start <= today <= self.sale_end
