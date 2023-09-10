@@ -6,7 +6,6 @@ from decimal import Decimal
 
 class Product(models.Model):
     DISCOUNT_RATE = 0.10
-    print("discount rate type:", type(DISCOUNT_RATE))
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
